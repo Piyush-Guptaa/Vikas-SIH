@@ -30,7 +30,6 @@ class _LoginState extends State<Login> {
   }
 
   @override
- 
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
@@ -119,10 +118,9 @@ class _LoginState extends State<Login> {
                                 return "Password cannot be empty";
                               } else if (value != pswd.toString()) {
                                 return "Password is incorrect";
-                              } else if(value == pswd.toString()){
+                              } else if (value == pswd.toString()) {
                                 return null;
                               }
-                              
                             },
                           ),
                           const SizedBox(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vikas/formpage.dart';
 import 'home.dart';
 import 'login.dart';
 
@@ -9,7 +10,7 @@ Future<void> main() async {
   bool _logout = prefs.containsKey('id');
   print(_logout);
 
-  runApp(MyApp(logout:_logout));
+  runApp(MyApp(logout: _logout));
 }
 
 class MyApp extends StatelessWidget {
@@ -17,7 +18,6 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key, required this.logout}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    
     return MaterialApp(
         title: 'VIKAS',
         debugShowCheckedModeBanner: false,
@@ -25,7 +25,6 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: logout ?  const Home() : const Login());
-        // home: checkLogin() == 'null' ? Login() : Home());
+        home: logout ? const Home() : const Login());
   }
 }
