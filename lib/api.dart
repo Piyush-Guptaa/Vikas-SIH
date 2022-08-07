@@ -2,7 +2,10 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
-String baseUrl = "https://api.github.com";
+import 'package:path_provider/path_provider.dart';
+import 'package:vikas/file.dart';
+
+String baseUrl = "https://vikas-api.herokuapp.com";
 
 Future<bool> uploadUserData(
     String name,
@@ -29,8 +32,16 @@ Future<bool> uploadUserData(
   };
   print(data);
 
+  await FileUtils.saveToFile(data);
+  Map fileContents = await FileUtils.readFromFile().then((value) {
+    return value;
+  });
+  print(fileContents);
+
+
+
   http.Response response = await http.post(
-    Uri.parse(baseUrl + "/users"),
+    Uri.parse(baseUrl + "/SHGData/AddData"),
     headers: {
       // "Authorization": "JWT $token",
       'Content-Type': 'application/json',

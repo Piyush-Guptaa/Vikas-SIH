@@ -13,6 +13,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List<List<FormPage>> items = <List<FormPage>>[];
+  Map data = {};
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,13 +44,17 @@ class _HomeState extends State<Home> {
                           onPressed: () => Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const FormPage())),
+                                  builder: (context) =>  FormPage())),
                           child: Text("SHG $index"),
                         ));
                   })),
           InkWell(
               onTap: () => setState(() {
-                    items.add(<FormPage>[]);
+                   if(items.length == 3) {
+                      SnackBar(content: Text('Maximum 3 SHGs allowed'));
+                    } else {
+                      items.add(<FormPage>[FormPage()]);
+                   } 
                   }),
               // onTap: () => Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => const FormPage())),
