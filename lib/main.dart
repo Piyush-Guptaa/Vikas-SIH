@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vikas/formpage.dart';
-import 'home.dart';
-import 'login.dart';
+import 'package:vikas/pages/home.dart';
+import 'pages/login.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,9 +21,13 @@ class MyApp extends StatelessWidget {
         title: 'VIKAS',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primaryColor: Colors.black,
+          scaffoldBackgroundColor: Colors.blueGrey.shade900,
+          appBarTheme: AppBarTheme(
+            backgroundColor: Colors.transparent,
+          ),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: logout ? const Home() : const Login());
+        home: logout ? VikassPage() : const Login());
   }
 }

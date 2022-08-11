@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'home.dart';
+import 'package:vikas/pages/home.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -25,7 +24,7 @@ class _LoginState extends State<Login> {
       });
       await Future.delayed(Duration(seconds: 1));
       await Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const Home()));
+          context, MaterialPageRoute(builder: (context) => VikassPage()));
     }
   }
 
@@ -57,6 +56,7 @@ class _LoginState extends State<Login> {
                         children: [
                           TextFormField(
                             style: const TextStyle(color: Colors.white),
+                            keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.white),
@@ -96,6 +96,7 @@ class _LoginState extends State<Login> {
                           ),
                           TextFormField(
                             obscureText: true,
+                            keyboardType: TextInputType.number,
                             style: const TextStyle(color: Colors.white),
                             decoration: const InputDecoration(
                                 enabledBorder: OutlineInputBorder(
