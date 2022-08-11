@@ -41,6 +41,7 @@ dependencies:
   http: ^0.13.5
   path_provider: ^2.0.1
   connectivity_wrapper: ^1.1.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -51,7 +52,22 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  flutter_native_splash: ^2.2.7
+  flutter_launcher_icons: "^0.10.0"
 
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/images/splashScreen.png
+  color_dark: "#ffffff"
+  image_dark: assets/images/splashScreen.png
+  android: true
+  fullscreen: true
+  android_gravity: fill
+  
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/icon.png"  
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
