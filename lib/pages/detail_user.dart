@@ -39,7 +39,7 @@ class _VikasDetailPageState extends State<VikasDetailPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          actions: [editButton(), uploadButton()],
+          actions: [editButton(), deleteButton(), uploadButton()],
         ),
         body: isLoading
             ? Center(child: CircularProgressIndicator())
@@ -56,7 +56,7 @@ class _VikasDetailPageState extends State<VikasDetailPage> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.03,),
                     Text(
                       DateFormat.yMMMd().format(vikas.createdTime),
                       style: TextStyle(
@@ -65,7 +65,7 @@ class _VikasDetailPageState extends State<VikasDetailPage> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.03,),
                     Text(
                       'AGE: ' + vikas.age.toString(),
                       style: TextStyle(
@@ -74,7 +74,7 @@ class _VikasDetailPageState extends State<VikasDetailPage> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.03,),
                     Text(
                       'SHG NAME: ' + vikas.shgname,
                       style: TextStyle(
@@ -83,7 +83,7 @@ class _VikasDetailPageState extends State<VikasDetailPage> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.03,),
                     Text(
                       'AADHAR NUMBER: ' + vikas.aadharnumber,
                       style: TextStyle(
@@ -92,7 +92,7 @@ class _VikasDetailPageState extends State<VikasDetailPage> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.03,),
                     Text(
                       'MONTHLY INCOME: ' + vikas.monthlyincome,
                       style: TextStyle(
@@ -101,7 +101,7 @@ class _VikasDetailPageState extends State<VikasDetailPage> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.03,),
                     Text(
                       'BANK NAME: ' + vikas.bankname,
                       style: TextStyle(
@@ -110,7 +110,7 @@ class _VikasDetailPageState extends State<VikasDetailPage> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.03,),
                     Text(
                       'BANK ACCOUNT NUMBER: ' + vikas.bankaccountnumber,
                       style: TextStyle(
@@ -119,7 +119,7 @@ class _VikasDetailPageState extends State<VikasDetailPage> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.03,),
                     Text(
                       'SHG ID: ' + vikas.shgid,
                       style: TextStyle(
@@ -128,7 +128,7 @@ class _VikasDetailPageState extends State<VikasDetailPage> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.03,),
                   ],
                 ),
               ),
@@ -145,7 +145,14 @@ class _VikasDetailPageState extends State<VikasDetailPage> {
 
         refreshVikas();
       });
+  Widget deleteButton() => IconButton(
+        icon: Icon(Icons.delete),
+        onPressed: () async {
+          await VikassDatabase.instance.delete(widget.vikasId);
 
+          Navigator.of(context).pop();
+        },
+      );
   Widget uploadButton() => IconButton(
         icon: Icon(Icons.upload),
         onPressed: () async {

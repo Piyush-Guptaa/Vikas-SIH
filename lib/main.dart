@@ -26,6 +26,9 @@ class MyApp extends StatelessWidget {
           appBarTheme: AppBarTheme(
             backgroundColor: Colors.transparent,
           ),
+          drawerTheme: DrawerThemeData(
+            backgroundColor: Colors.white,
+          ),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: logout ? VikassPage() : const Login());

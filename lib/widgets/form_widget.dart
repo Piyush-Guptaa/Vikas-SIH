@@ -152,12 +152,13 @@ class VikasFormWidget extends StatelessWidget {
         margin: EdgeInsets.all(10),
         child: TextFormField(
           initialValue: aadharnumber,
+          maxLength: 12,
           keyboardType: TextInputType.number,
           validator: (value) {
             if (value!.isEmpty) {
               return "Aadhar Number cannot be empty";
             }
-            if (value.length < 12) {
+            if (value.length < 12 || value.length > 12) {
               return "Enter valid Aadhar Number 12 digits";
             }
             return null;
@@ -240,13 +241,14 @@ class VikasFormWidget extends StatelessWidget {
   Widget buildBankaccountnumber() => Container(
         margin: EdgeInsets.all(10),
         child: TextFormField(
+          maxLength: 10,
           initialValue: bankaccountnumber,
           keyboardType: TextInputType.number,
           validator: (value) {
             if (value!.isEmpty) {
               return "Bank Account Number cannot be empty";
             }
-            if (value.length < 10) {
+            if (value.length < 10 || value.length > 10) {
               return "Enter valid Bank Account Number 10 digits";
             }
             return null;

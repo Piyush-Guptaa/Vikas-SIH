@@ -3,10 +3,12 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:vikas/db/vikas_database.dart';
+import 'package:vikas/pages/delete.dart';
 import 'package:vikas/pages/login.dart';
 import 'package:vikas/model/vikas.dart';
 import 'package:vikas/pages/detail_user.dart';
 import 'package:vikas/pages/edit_user.dart';
+import 'package:vikas/pages/search.dart';
 import 'package:vikas/widgets/card_widget.dart';
 
 class VikassPage extends StatefulWidget {
@@ -43,22 +45,97 @@ class _VikassPageState extends State<VikassPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text(
-            'Home',
-            style: TextStyle(fontSize: 24),
-          ),
+          // title: Text(
+          //   'Home',
+          //   style: TextStyle(fontSize: 24),
+          // ),
           actions: [
-            IconButton(
-              icon: const Icon(Icons.exit_to_app),
-              onPressed: () async {
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                prefs.clear();
-                deleteDatabase('vikass.db');
-                await Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => const Login()));
-              },
-            ),
+            Row(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.search),
+                  onPressed: () async {
+                    await Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => SearchSHGPage()),
+                    );
+
+                    refreshVikass();
+                  },
+                ),
+                IconButton(
+                  icon: const Icon(Icons.exit_to_app),
+                  onPressed: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.clear();
+                    await deleteDatabase('vikass.db');
+                    await Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => const Login()));
+                  },
+                ),
+              ],
+            )
           ],
+        ),
+        drawer: Drawer(
+          child: ListView(
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.1,
+                child: DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Colors.blueGrey.shade900,
+                  ),
+                  child: Text(
+                    'Menu',
+                    style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              ListTile(
+                title: Text('Add New User', style: TextStyle(fontSize: 15)),
+                onTap: () async {
+                  await Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => AddEditVikasPage()),
+                  );
+
+                  refreshVikass();
+                },
+              ),
+              ListTile(
+                title: Text('Search User', style: TextStyle(fontSize: 15)),
+                onTap: () async {
+                  await Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => SearchSHGPage()),
+                  );
+
+                  refreshVikass();
+                },
+              ),
+              ListTile(
+                  title: Text('Delete User', style: TextStyle(fontSize: 15)),
+                  onTap: () async {
+                    await Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => DeleteSHGPage()),
+                    );
+                    refreshVikass();
+                  }),
+              ListTile(
+                title: Text('Logout', style: TextStyle(fontSize: 15)),
+                onTap: () async {
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  prefs.clear();
+                  deleteDatabase('vikass.db');
+                  await Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => const Login()));
+                },
+              ),
+            ],
+          ),
         ),
         body: Center(
           child: isLoading
@@ -70,6 +147,41 @@ class _VikassPageState extends State<VikassPage> {
                     )
                   : buildVikass(),
         ),
+        // Column(
+        // children: [
+        // SizedBox(
+        //   width: double.infinity,
+        //   child: ElevatedButton.icon(
+        //       onPressed: () async {
+        //         await Navigator.of(context).push(
+        //           MaterialPageRoute(builder: (context) => SearchSHGPage()),
+        //         );
+
+        //         refreshVikass();
+        //       },
+        //       style: ElevatedButton.styleFrom(
+        //         primary: Colors.green,
+        //         onPrimary: Colors.white,
+        //         shadowColor: Colors.greenAccent,
+        //         elevation: 3,
+        //         shape: RoundedRectangleBorder(
+        //             borderRadius: BorderRadius.circular(32.0)),
+        //       ),
+        //       icon: Icon(Icons.search),
+        //       label: Text("Find SHG ")),
+        // ),
+        // Center(
+        //   child: isLoading
+        //       ? CircularProgressIndicator()
+        //       : vikass.isEmpty
+        //           ? Text(
+        //               'No SHGs found',
+        //               style: TextStyle(color: Colors.white, fontSize: 24),
+        //             )
+        //           : buildVikass(),
+        // ),
+        // ],
+        // ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.black,
           child: Icon(Icons.add),

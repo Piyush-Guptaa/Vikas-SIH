@@ -27,3 +27,30 @@ Future<bool> checkInternetConnection() async {
     return false;
   }
 }
+
+Future<Map?> getSHGData(String id) async {
+  http.Response response = await http.get(
+    Uri.parse("$baseUrl/SHGData/GetData/$id"),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  );
+  if( response.statusCode == 404 || response.body.isEmpty){
+    return null;
+  }
+  else if (response.statusCode == 200 ) {
+    return json.decode(response.body);
+  } 
+  else {
+    return null;
+  }
+} 
+Future<bool> deleteSHGData(String id) async {
+  http.Response response = await http.delete(
+    Uri.parse("$baseUrl/SHGData/DeleteData/$id"),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  );
+  return response.statusCode == 200 ? true : false;
+}
