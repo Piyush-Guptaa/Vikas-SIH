@@ -169,8 +169,8 @@ class _DeleteSHGPageState extends State<DeleteSHGPage> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(32.0)),
                   ),
-                  icon: Icon(Icons.search),
-                  label: Text("Find SHG ")),
+                  icon: Icon(Icons.delete),
+                  label: Text("Delete SHG")),
             ),
                         ],
                       ),

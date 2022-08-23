@@ -11,11 +11,12 @@ class SearchSHGPage extends StatefulWidget {
 class _SearchSHGPageState extends State<SearchSHGPage> {
   TextEditingController shgID = TextEditingController();
   Map? data = {};
-  bool isLoading = true;
+  bool isLoading = true;  
   searchshg(String shgid) async {
     checkInternetConnection().then((value) async {
       if (value == true) {
         data = await getSHGData(shgid);
+        
         print(data);
         if (data == null) {
           SnackBar snackBar =
