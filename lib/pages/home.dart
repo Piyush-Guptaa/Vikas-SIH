@@ -1,14 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:vikas/db/vikas_database.dart';
+import 'package:vikas/pages/cam.dart';
 import 'package:vikas/pages/delete.dart';
 import 'package:vikas/pages/login.dart';
 import 'package:vikas/model/vikas.dart';
 import 'package:vikas/pages/detail_user.dart';
 import 'package:vikas/pages/edit_user.dart';
 import 'package:vikas/pages/search.dart';
+import 'package:vikas/server/api.dart';
 import 'package:vikas/widgets/card_widget.dart';
 
 class VikassPage extends StatefulWidget {
@@ -38,7 +42,8 @@ class _VikassPageState extends State<VikassPage> {
     setState(() => isLoading = true);
 
     this.vikass = await VikassDatabase.instance.readAllVikass();
-
+    // var abc = vikass.toSet().toList();
+    print(jsonEncode(vikass));
     setState(() => isLoading = false);
   }
 
@@ -60,6 +65,46 @@ class _VikassPageState extends State<VikassPage> {
                     );
 
                     refreshVikass();
+                  },
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.upload,
+                    color: Colors.white,
+                  ),
+                  onPressed: () async {
+                    await checkInternetConnection().then((value) {
+                      if (value == true) {
+                        // uploadUserData(vikas.toJson());
+                        VikassDatabase.instance.readAllVikass().then((value) {
+                          for (var vikas in value) {
+                            uploadUserData(vikas.toJson());
+                            VikassDatabase.instance.delete(vikas.id!.toInt());
+                            setState(() {
+                              refreshVikass();
+                        
+                            });
+                            // deleteUserData(vikas.id);
+                            print(vikas.id);
+                          }
+                        });
+                    
+                        // VikassDatabase.instance.delete(widget.vikas.id!.toInt());
+                        SnackBar snackBar = SnackBar(
+                            content: Text('Data Uploaded Successfully'));
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        setState(() {
+                          Future.delayed(Duration(seconds: 1));
+
+                          refreshVikass();
+                        });
+                      } else {
+                        SnackBar snackBar =
+                            SnackBar(content: Text('No Internet Connection'));
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        setState(() {});
+                      }
+                    });
                   },
                 ),
                 IconButton(
@@ -124,6 +169,18 @@ class _VikassPageState extends State<VikassPage> {
                     refreshVikass();
                   }),
               ListTile(
+                  title: Text('Upload Documents For Verification',
+                      style: TextStyle(fontSize: 15)),
+                  onTap: () async {
+                    await Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (context) => CamPage(
+                                title: " Cam",
+                              )),
+                    );
+                    refreshVikass();
+                  }),
+              ListTile(
                 title: Text('Logout', style: TextStyle(fontSize: 15)),
                 onTap: () async {
                   SharedPreferences prefs =
@@ -143,7 +200,7 @@ class _VikassPageState extends State<VikassPage> {
               : vikass.isEmpty
                   ? Text(
                       'No SHGs found',
-                      style: TextStyle(color: Colors.white, fontSize: 24),
+                      style: TextStyle(color: Colors.black, fontSize: 24),
                     )
                   : buildVikass(),
         ),
@@ -213,7 +270,14 @@ class _VikassPageState extends State<VikassPage> {
 
               refreshVikass();
             },
-            child: VikasCardWidget(vikas: vikas, index: index),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  VikasCardWidget(vikas: vikas, index: index),
+                  Divider(
+                    color: Colors.black,
+                  ),
+                ]),
           );
         },
       );

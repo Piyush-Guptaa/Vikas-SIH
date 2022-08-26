@@ -35,22 +35,36 @@ Future<Map?> getSHGData(String id) async {
       'Content-Type': 'application/json',
     },
   );
-  if( response.statusCode == 404 || response.body.isEmpty){
+  if (response.statusCode == 404 || response.body.isEmpty) {
     return null;
-  }
-  else if (response.statusCode == 200 ) {
+  } else if (response.statusCode == 200) {
     return json.decode(response.body);
-  } 
-  else {
+  } else {
     return null;
   }
-} 
+}
+
 Future<bool> deleteSHGData(String id) async {
   http.Response response = await http.delete(
     Uri.parse("$baseUrl/SHGData/DeleteData/$id"),
     headers: {
       'Content-Type': 'application/json',
     },
+  );
+  return response.statusCode == 200 ? true : false;
+}
+
+Future<bool> sendBimg(String baseimg, String id) async {
+  Map data = {
+    "photo64": baseimg,
+  };
+  print(data);
+  http.Response response = await http.patch(
+    Uri.parse("$baseUrl/SHGData/Update/$id"),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: jsonEncode(data),
   );
   return response.statusCode == 200 ? true : false;
 }

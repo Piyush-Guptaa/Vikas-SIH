@@ -1,55 +1,66 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:vikas/db/vikas_database.dart';
 import 'package:vikas/model/vikas.dart';
+import 'package:vikas/server/api.dart';
 
 final _lightColors = [
-  Colors.amber.shade300,
-  Colors.lightGreen.shade300,
-  Colors.lightBlue.shade300,
-  Colors.orange.shade300,
-  Colors.pinkAccent.shade100,
-  Colors.tealAccent.shade100
+  Colors.white,
 ];
 
-class VikasCardWidget extends StatelessWidget {
+class VikasCardWidget extends StatefulWidget {
+  final Vikas vikas;
+  final int index;
   VikasCardWidget({
     Key? key,
     required this.vikas,
     required this.index,
   }) : super(key: key);
+  @override
+  State<VikasCardWidget> createState() => _VikasCardWidgetState();
+}
 
-  final Vikas vikas;
-  final int index;
-
+class _VikasCardWidgetState extends State<VikasCardWidget> {
   @override
   Widget build(BuildContext context) {
-    final color = _lightColors[index % _lightColors.length];
-    final time = DateFormat.yMMMd().format(vikas.createdTime);
+    final color = _lightColors[widget.index % _lightColors.length];
+    final time =
+        DateFormat.yMMMMEEEEd().add_Hms().format(widget.vikas.createdTime);
 
     return Card(
-      color: color,
-      child: Container(
-        padding: EdgeInsets.all(8),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              time,
-              style: TextStyle(color: Colors.grey.shade700),
-            ),
-            SizedBox(height: 4),
-            Text(
-              vikas.name,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+        elevation: 0,
+        color: color,
+        child: Container(
+          padding: EdgeInsets.all(8),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.vikas.name,
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      time,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-      ),
-    );
+              
+            ],
+          ),
+        ));
   }
 }

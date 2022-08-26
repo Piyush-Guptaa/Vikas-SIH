@@ -1,6 +1,11 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+// import 'package:image_picker/image_picker.dart';
 
 class VikasFormWidget extends StatelessWidget {
   final String? name;
@@ -38,6 +43,23 @@ class VikasFormWidget extends StatelessWidget {
     required this.onChangedBankaccountnumber,
     required this.onChangedShgid,
   }) : super(key: key);
+  // File? image;
+  // late final imageTemp2;
+  // Future pickImage() async {
+  //   try {
+  //     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+  //     if (image == null) return;
+
+  //     final imageTemp = File(image.path);
+
+  //     final imageBytes = imageTemp.readAsBytesSync();
+  //     imageTemp2 = Base64Encoder().convert(imageBytes);
+  //     print(imageTemp2);
+  //   } on PlatformException catch (e) {
+  //     print('Failed to pick image: $e');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) => SingleChildScrollView(
@@ -54,6 +76,7 @@ class VikasFormWidget extends StatelessWidget {
               buildBankname(),
               buildBankaccountnumber(),
               buildShgid(),
+              // buildImage(),
             ],
           ),
         ),
@@ -72,18 +95,18 @@ class VikasFormWidget extends StatelessWidget {
             }
             return null;
           },
-          style: const TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.black),
           decoration: const InputDecoration(
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white),
+              borderSide: BorderSide(color: Colors.black),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white),
+              borderSide: BorderSide(color: Colors.black),
             ),
             border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
             labelText: 'Name',
-            labelStyle: TextStyle(fontSize: 14, color: Colors.white),
+            labelStyle: TextStyle(fontSize: 14, color: Colors.black),
           ),
           onChanged: onChangedName,
         ),
@@ -102,18 +125,18 @@ class VikasFormWidget extends StatelessWidget {
             }
             return null;
           },
-          style: const TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.black),
           decoration: const InputDecoration(
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white),
+              borderSide: BorderSide(color: Colors.black),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white),
+              borderSide: BorderSide(color: Colors.black),
             ),
             border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
             labelText: 'Age',
-            labelStyle: TextStyle(fontSize: 14, color: Colors.white),
+            labelStyle: TextStyle(fontSize: 14, color: Colors.black),
           ),
           onChanged: onChangedAge,
         ),
@@ -132,18 +155,18 @@ class VikasFormWidget extends StatelessWidget {
             }
             return null;
           },
-          style: const TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.black),
           decoration: const InputDecoration(
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white),
+              borderSide: BorderSide(color: Colors.black),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white),
+              borderSide: BorderSide(color: Colors.black),
             ),
             border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
             labelText: 'SHG Name',
-            labelStyle: TextStyle(fontSize: 14, color: Colors.white),
+            labelStyle: TextStyle(fontSize: 14, color: Colors.black),
           ),
           onChanged: onChangedShgname,
         ),
@@ -163,18 +186,18 @@ class VikasFormWidget extends StatelessWidget {
             }
             return null;
           },
-          style: const TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.black),
           decoration: const InputDecoration(
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white),
+              borderSide: BorderSide(color: Colors.black),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white),
+              borderSide: BorderSide(color: Colors.black),
             ),
             border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
             labelText: 'Aadhar Number',
-            labelStyle: TextStyle(fontSize: 14, color: Colors.white),
+            labelStyle: TextStyle(fontSize: 14, color: Colors.black),
           ),
           onChanged: onChangedAadharnumber,
         ),
@@ -193,18 +216,18 @@ class VikasFormWidget extends StatelessWidget {
             }
             return null;
           },
-          style: const TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.black),
           decoration: const InputDecoration(
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white),
+              borderSide: BorderSide(color: Colors.black),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white),
+              borderSide: BorderSide(color: Colors.black),
             ),
             border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
             labelText: 'Monthly Income',
-            labelStyle: TextStyle(fontSize: 14, color: Colors.white),
+            labelStyle: TextStyle(fontSize: 14, color: Colors.black),
           ),
           onChanged: onChangedMonthlyincome,
         ),
@@ -222,18 +245,18 @@ class VikasFormWidget extends StatelessWidget {
             }
             return null;
           },
-          style: const TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.black),
           decoration: const InputDecoration(
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white),
+              borderSide: BorderSide(color: Colors.black),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white),
+              borderSide: BorderSide(color: Colors.black),
             ),
             border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
             labelText: 'Bank Name',
-            labelStyle: TextStyle(fontSize: 14, color: Colors.white),
+            labelStyle: TextStyle(fontSize: 14, color: Colors.black),
           ),
           onChanged: onChangedBankname,
         ),
@@ -253,18 +276,18 @@ class VikasFormWidget extends StatelessWidget {
             }
             return null;
           },
-          style: const TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.black),
           decoration: const InputDecoration(
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white),
+              borderSide: BorderSide(color: Colors.black),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white),
+              borderSide: BorderSide(color: Colors.black),
             ),
             border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
             labelText: 'Bank Account Number',
-            labelStyle: TextStyle(fontSize: 14, color: Colors.white),
+            labelStyle: TextStyle(fontSize: 14, color: Colors.black),
           ),
           onChanged: onChangedBankaccountnumber,
         ),
@@ -283,20 +306,27 @@ class VikasFormWidget extends StatelessWidget {
             }
             return null;
           },
-          style: const TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.black),
           decoration: const InputDecoration(
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white),
+              borderSide: BorderSide(color: Colors.black),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white),
+              borderSide: BorderSide(color: Colors.black),
             ),
             border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
             labelText: 'SHG ID',
-            labelStyle: TextStyle(fontSize: 14, color: Colors.white),
+            labelStyle: TextStyle(fontSize: 14, color: Colors.black),
           ),
           onChanged: onChangedShgid,
         ),
       );
+  // Widget buildImage() => MaterialButton(
+  //     color: Colors.blue,
+  //     child: const Text("Pick Image from Gallery",
+  //         style: TextStyle(color: Colors.white70, fontWeight: FontWeight.bold)),
+  //     onPressed: () {
+  //       pickImage();
+  //     });
 }

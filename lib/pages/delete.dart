@@ -74,26 +74,26 @@ class _DeleteSHGPageState extends State<DeleteSHGPage> {
                         }
                         return null;
                       },
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.black),
                       decoration: const InputDecoration(
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
+                          borderSide: BorderSide(color: Colors.black),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
+                          borderSide: BorderSide(color: Colors.black),
                         ),
                         border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white)),
+                            borderSide: BorderSide(color: Colors.black)),
                         labelText: 'SHG ID',
                         labelStyle:
-                            TextStyle(fontSize: 14, color: Colors.white),
+                            TextStyle(fontSize: 14, color: Colors.black),
                       ),
                     ),
                   ),
                   IconButton(
                     onPressed: () => searchshg(shgID.text),
                     icon: Icon(Icons.search),
-                    color: Colors.white,
+                    color: Colors.black,
                   ),
                 ],
               ),
@@ -102,7 +102,7 @@ class _DeleteSHGPageState extends State<DeleteSHGPage> {
                     ? Center(
                         child: Text("Enter SHG ID to Delete",
                             style:
-                                TextStyle(color: Colors.white, fontSize: 24)),
+                                TextStyle(color: Colors.black, fontSize: 24)),
                       )
                     : Column(
                         // mainAxisAlignment: MainAxisAlignment.start,
@@ -114,7 +114,7 @@ class _DeleteSHGPageState extends State<DeleteSHGPage> {
                           Text(
                             'Found SHG',
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
@@ -123,7 +123,7 @@ class _DeleteSHGPageState extends State<DeleteSHGPage> {
                           Text(
                             'NAME: ' + data!['name'].toString(),
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
@@ -132,7 +132,7 @@ class _DeleteSHGPageState extends State<DeleteSHGPage> {
                           Text(
                             'SHG ID: ' + data!['shgid'].toString(),
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
@@ -163,7 +163,7 @@ class _DeleteSHGPageState extends State<DeleteSHGPage> {
                   },
                   style: ElevatedButton.styleFrom(
                     primary: Colors.green,
-                    onPrimary: Colors.white,
+                    onPrimary: Colors.black,
                     shadowColor: Colors.greenAccent,
                     elevation: 3,
                     shape: RoundedRectangleBorder(
@@ -178,7 +178,7 @@ class _DeleteSHGPageState extends State<DeleteSHGPage> {
               // Text(
               //   'Name: ' + data['name'].toString(),
               //   style: TextStyle(
-              //     color: Colors.white,
+              //     color: Colors.black,
               //     fontSize: 18,
               //     fontWeight: FontWeight.bold,
               //   ),

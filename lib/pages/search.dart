@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:vikas/server/api.dart';
 
@@ -11,12 +13,12 @@ class SearchSHGPage extends StatefulWidget {
 class _SearchSHGPageState extends State<SearchSHGPage> {
   TextEditingController shgID = TextEditingController();
   Map? data = {};
-  bool isLoading = true;  
+  bool isLoading = true;
   searchshg(String shgid) async {
     checkInternetConnection().then((value) async {
       if (value == true) {
         data = await getSHGData(shgid);
-        
+
         print(data);
         if (data == null) {
           SnackBar snackBar =
@@ -54,7 +56,7 @@ class _SearchSHGPageState extends State<SearchSHGPage> {
           //   ),
           // ],
         ),
-        body: Center(
+        body: SingleChildScrollView(
           child: Column(
             children: [
               Row(
@@ -75,26 +77,26 @@ class _SearchSHGPageState extends State<SearchSHGPage> {
                         }
                         return null;
                       },
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.black),
                       decoration: const InputDecoration(
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
+                          borderSide: BorderSide(color: Colors.black),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
+                          borderSide: BorderSide(color: Colors.black),
                         ),
                         border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white)),
+                            borderSide: BorderSide(color: Colors.black)),
                         labelText: 'SHG ID',
                         labelStyle:
-                            TextStyle(fontSize: 14, color: Colors.white),
+                            TextStyle(fontSize: 14, color: Colors.black),
                       ),
                     ),
                   ),
                   IconButton(
-                    onPressed: () => searchshg(shgID.text),
+                    onPressed: () => searchshg(shgID.text.toString()),
                     icon: Icon(Icons.search),
-                    color: Colors.white,
+                    color: Colors.black,
                   ),
                 ],
               ),
@@ -103,17 +105,32 @@ class _SearchSHGPageState extends State<SearchSHGPage> {
                     ? Center(
                         child: Text("Enter SHG ID to search",
                             style:
-                                TextStyle(color: Colors.white, fontSize: 24)),
+                                TextStyle(color: Colors.black, fontSize: 24)),
                       )
                     : Column(
                         // mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(height: 15),
+                          Container(
+                            height: 400,
+                            // width: 150,
+                            child: Image.memory(base64Decode(data!['photo64'])),
+                          ),
+                          SizedBox(height: 8),
+                          Text(
+                            'SHG ID: ' + data!['shgid'].toString(),
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 8),
                           Text(
                             'NAME: ' + data!['name'].toString(),
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
@@ -122,7 +139,7 @@ class _SearchSHGPageState extends State<SearchSHGPage> {
                           Text(
                             'AGE: ' + data!['age'].toString(),
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
@@ -131,7 +148,7 @@ class _SearchSHGPageState extends State<SearchSHGPage> {
                           Text(
                             'SHG NAME: ' + data!['shgname'].toString(),
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
@@ -141,7 +158,7 @@ class _SearchSHGPageState extends State<SearchSHGPage> {
                             'AADHAR NUMBER: ' +
                                 data!['aadharnumber'].toString(),
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
@@ -151,7 +168,7 @@ class _SearchSHGPageState extends State<SearchSHGPage> {
                             'MONTHLY INCOME: ' +
                                 data!['monthlyincome'].toString(),
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
@@ -160,7 +177,7 @@ class _SearchSHGPageState extends State<SearchSHGPage> {
                           Text(
                             'BANK NAME: ' + data!['bankname'].toString(),
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
@@ -170,16 +187,7 @@ class _SearchSHGPageState extends State<SearchSHGPage> {
                             'BANK ACCOUNT NUMBER: ' +
                                 data!['bankaccountnumber'].toString(),
                             style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            'SHG ID: ' + data!['shgid'].toString(),
-                            style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
@@ -190,7 +198,7 @@ class _SearchSHGPageState extends State<SearchSHGPage> {
               // Text(
               //   'Name: ' + data['name'].toString(),
               //   style: TextStyle(
-              //     color: Colors.white,
+              //     color: Colors.black,
               //     fontSize: 18,
               //     fontWeight: FontWeight.bold,
               //   ),

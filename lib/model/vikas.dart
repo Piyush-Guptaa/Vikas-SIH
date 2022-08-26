@@ -15,7 +15,7 @@ class VikasFields {
   ];
 
   static final String id = '_id';
-  static final String time = 'time';
+  static final String time = 'date';
   static final String name = 'name';
   static final String age = 'age';
   static final String shgname = 'shgname';
